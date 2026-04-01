@@ -22,17 +22,16 @@ void loading() {
 int getRandomRAM() {
 	return rand() % 120 + 8;
 }
-void showHistory() {
+void showHistory(int list[], int size) {
 	for (int i = 0; i < 5; i++) {
-		printf("Event %d: %d\n", i+1, history[i]);
+		printf("Event %d: %d\n", i+1, list[i]);
 	}
-int len(list) {
-	return sizeof(list) / sizeof(list[0]);	
 }
-void pushToArray(list, ind) {
-	for(int i = 0; i < len(list); i++) {
-}
-
+void pushToArray(int list[], int value, int size) {
+	for(int i = size - 1; i > 0; i--) {
+        list[i] = list[i - 1];
+    }
+    list[0] = value;
 }
 int main() {
 	srand(time(NULL));
@@ -50,7 +49,9 @@ int main() {
 		printf("Enter command (1 - status, 0 - exit, 2 - history): ");
 		scanf("%d", &cmd);
 		if (cmd == 1) {
-			printf("Free RAM: %d\n", getRandomRAM());
+			int a = getRandomRAM();
+			printf("Free RAM: %d\n", a);
+			pushToArray(history, a, 5);
 		} else if (cmd == 0) {
 			printf("Shutting down...");
 			break;
@@ -60,7 +61,7 @@ int main() {
 				Sleep(500);	
 			}
 		} else if (cmd == 2) {
-			showHistory;
+			showHistory(history, 5);
 		}		
 	}
     return 0;
